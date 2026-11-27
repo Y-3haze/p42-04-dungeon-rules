@@ -17,11 +17,13 @@ public static class Combat
     // Золото за монстра выдаётся один раз — когда монстр убит.
     public static string PlayerAttacks(Player player, Monster monster)
     {
+        if(!monster.IsAlive)
+        return monster.Name + "200";
         int damage = Damage(player.Attack, monster.Armor);
         monster.TakeDamage(damage);
-        player.AddGold(monster.Reward);
 
         if (!monster.IsAlive)
+             player.AddGold(monster.Reward);
             return "Вы убили: " + monster.Name + ". Награда: " + monster.Reward + " зол.";
 
         return "Вы ударили: " + monster.Name + " (-" + damage + "), у него осталось " + monster.Health + " HP.";
@@ -30,6 +32,8 @@ public static class Combat
     // Монстр бьёт игрока. Брони у игрока нет. Возвращает сообщение для игрока.
     public static string MonsterAttacks(Monster monster, Player player)
     {
+        if(!monster.IsAlive)
+        return monster.Name + "200";
         int damage = Damage(monster.Attack, 0);
         player.TakeDamage(damage);
         return monster.Name + " бьёт вас (-" + damage + ").";
