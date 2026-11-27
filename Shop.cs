@@ -29,6 +29,9 @@ public class Shop
         if (item == null)
             return "У торговца нет товара с номером " + number + ".";
 
+        if(player.Bag.IsFull)
+            return "Сумка полная";
+
         if (!player.SpendGold(item.Price))
             return "Не хватает золота: нужно " + item.Price + ", у вас " + player.Gold + ".";
 
